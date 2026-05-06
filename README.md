@@ -1,68 +1,40 @@
 # prism-store-ledger-bench
 
-`prism-store-ledger-bench` treats databases as a local verification problem. The Swift implementation is intentionally narrow, but the fixtures and notes make the behavior explicit.
+`prism-store-ledger-bench` explores databases with a small Swift codebase and local fixtures. The technical goal is to develop a Swift command-oriented project for ledger scenarios with layout fixtures, stable geometry snapshots, and fixture-scale datasets.
 
-## Prism Store Ledger Bench Checkpoints
+## Why It Exists
 
-Treat the compact fixture as the contract and the extended examples as a scratchpad. The code should stay boring enough that a change in behavior is obvious from the test output.
+This is intentionally local and self-contained so it can be inspected without credentials, services, or seeded history.
 
-## What This Is For
+## Prism Store Ledger Bench Review Notes
 
-This project keeps the domain idea close to the tests. That makes it useful as a reference implementation, a small experiment, or a starting point for a more specialized tool.
+For a quick review, compare `index fit` with `join width` before reading the middle cases.
 
-## Case Study
+## Features
 
-The examples are meant to be readable before they are exhaustive. They cover enough variation to show how latency and risk can pull a decision below the threshold.
+- `fixtures/domain_review.csv` adds cases for index fit and join width.
+- `metadata/domain-review.json` records the same cases in structured form.
+- `config/review-profile.json` captures the read order and the two review questions.
+- `examples/prism-store-ledger-walkthrough.md` walks through the case spread.
+- The Swift code includes a review path for `index fit` and `join width`.
+- `docs/field-notes.md` explains the strongest and weakest cases.
 
 ## Architecture Notes
 
-The core is a scoring model over demand, capacity, latency, risk, and weight. That keeps schema shape, query checks, and fixture rows in one explicit decision path. The threshold is 152, with risk penalty 5, latency penalty 3, and weight bonus 2. The Swift project compiles a minimal command-line test harness against the local Windows SDK.
+The implementation keeps the scoring rule plain: reward signal and confidence, preserve slack, penalize drag, then classify the result into a review lane.
 
-## Useful Pieces
+The Swift implementation avoids hidden state so fixture changes are easy to reason about.
 
-- Models schema shape with deterministic scoring and explicit review decisions.
-- Uses fixture data to keep query checks changes visible in code review.
-- Includes extended examples for fixture rows, including `surge` and `degraded`.
-- Documents constraint behavior tradeoffs in `docs/operations.md`.
-- Runs locally with a single verification command and no external credentials.
-
-## Local Workflow
+## Usage
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify.ps1
 ```
 
-This runs the language-level build or test path against the compact fixture set.
+## Tests
 
-## Quality Gate
+The check exercises the source code and the review fixture. `stale` is the high score at 203; `stress` is the low score at 95.
 
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts/audit.ps1
-```
+## Limitations And Roadmap
 
-The audit command checks repository structure and README constraints before it delegates to the verifier.
-
-## Project Layout
-
-- `src`: primary implementation
-- `tests`: verification harness
-- `fixtures`: compact golden scenarios
-- `examples`: expanded scenario set
-- `metadata`: project constants and verification metadata
-- `docs`: operations and extension notes
-- `scripts`: local verification and audit commands
-
-## Expansion Ideas
-
-- Add a loader for `examples/extended_cases.csv` and promote selected cases into the language test suite.
-- Add a short report command that prints the score breakdown for a single scenario.
-- Add malformed input fixtures so the failure path is as visible as the happy path.
-- Add one more databases fixture that focuses on a malformed or borderline input.
-
-## Scope
-
-The scoring model is simple by design. More domain-specific behavior should be added through explicit adapters or extra fixture classes rather than hidden constants.
-
-## Tooling
-
-Clone the repository, enter the directory, and run the verifier. No database server, cloud account, or token is required.
+The repository is intentionally scoped to local checks. I would expand it by adding adversarial fixtures before adding features.
