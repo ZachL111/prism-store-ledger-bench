@@ -1,0 +1,32 @@
+{
+  "index": 219,
+  "phase": 2,
+  "batch": 25,
+  "name": "prism-store-ledger-bench",
+  "planned_name": "prism-store-ledger-bench",
+  "language": "Swift",
+  "category": "Databases",
+  "goal": "Develop a Swift command-oriented project for ledger scenarios with layout fixtures, stable geometry snapshots, and fixture-scale datasets.",
+  "repository_url": "https://github.com/ZachL111/prism-store-ledger-bench",
+  "verification_command": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify.ps1",
+  "model": {
+    "inputs": [
+      "demand",
+      "capacity",
+      "latency",
+      "risk",
+      "weight"
+    ],
+    "threshold": 152,
+    "risk_penalty": 5,
+    "latency_penalty": 3,
+    "weight_bonus": 2,
+    "decision_rule": "accept when score is greater than or equal to threshold, otherwise review"
+  },
+  "quality_gates": [
+    "readme constraint scan",
+    "fixture presence check",
+    "metadata JSON parse",
+    "language verifier"
+  ]
+}
